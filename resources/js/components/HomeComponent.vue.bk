@@ -1,0 +1,77 @@
+<template>
+    <div class="container">
+        <div class="row mt-5">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Clients</h3>
+                <div>
+                </div>
+
+                <div class="card-tools">
+                    <button class="btn btn-success" data-toggle="modal" data-target="#addNew" @click="addClientWindow">Add New <i class="fas fa-client-plus fa-fw"></i></button>
+                </div>
+              </div>
+             
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tbody>
+                  <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                        <th>Image</th>
+                  </tr> 
+
+                  <tr v-for="client in clients" :key="client.id">
+                    <td>{{ this.client.id }}</td>
+                    <td>{{ this.client.name }}</td>
+                    <td>{{ this.client.address }}</td>
+                    <td>{{ this.client.phone }}</td>
+                    <td>{{ this.client.age }}</td>
+                    <td>{{ this.client.image }}</td>
+                    <td>
+                      <div>
+                        <router-link :to="{name: 'edit', params: { id: client.id }}" class="btn btn-success">Edit</router-link>
+                        <button class="btn btn-danger" @click="deleteClient(client.id)">Delete</button>
+                      </div> 
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>            
+            </div> 
+          </div>
+        </div>
+    </div>
+
+</template>
+
+<script>
+export default {
+  data(){
+    return{
+      clients: []
+    }
+  },
+  created(){
+    this.axios
+        .get('http://locahost:8000/api/clients')
+        .then(response => {
+          this.productos = response.data;
+        });
+  },
+  methods: {
+    deleteClient(id) {
+      this.axios
+          .delete('http://localhost:8000/api/clients/{$id}')
+          .then(response =>{
+            let i = this.clients.map(data => data.id).indexOf(id);
+            this.clients.splice(i, 1)
+          });
+    }
+  }
+  }
+</script> 
