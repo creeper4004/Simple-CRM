@@ -35,7 +35,7 @@ export default {
     },
     created(){
         this.axios
-            .get('http://localhost:8000/api/client/${this.$route.params.id}')
+            .get('http://localhost:8000/api/${this.$route.params.id}')
             .then((res) => {
                 this.client = res.data;
             });
@@ -43,7 +43,7 @@ export default {
     methods: {
         updateClient(){
             this.axios
-                .patch('http://localhost:8000/api/clients/${this.$route.params.id}')
+                .patch('http://localhost:8000/api/edit/${this.$route.params.id}')
                 .then((res) =>{
                     this.$router.push({ name: 'home'});
                 });

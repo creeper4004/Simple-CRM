@@ -3,7 +3,7 @@
 use App\Http\Controllers\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,11 +20,15 @@ use Illuminate\Support\Facades\Route;
 /* 		'clients' => 'API/ClientController' */
 /* 	] */
 /* ); */
-Route::post('create', 'ClientController@store');
-/* Route::get('', 'PostController@get');     */
-Route::delete('/{id}', 'PostController@delete');
-
-Route::middleware('api')->group(function () {
-  Route::resource('clients', ClientController::class);
+Route::get('clients', [ClientController::class, 'index']);
+Route::group(['prefix' => 'client'], function(){ 
+  Route::post('create', [ClientController::class, 'create']);
+  Route::get('edit/{id}', [ClientController::class, 'edit']);
+  Route::post('update/{id}', [ClientController::class, 'update']);
+  Route::delete('delete/{id}', [ClientController::class, 'delete']);
 });
+
+/* Route::middleware('api')->group(function () { */
+/*   Route::resource('clients', ClientController::class); */
+/* }); */
 

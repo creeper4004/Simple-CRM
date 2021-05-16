@@ -13,16 +13,15 @@ class ClientController extends Controller
     $clients = Client::all()->toArray();
     return array_reverse($clients);
 	}
-	public function store(Request $request)
+	public function create(Request $request)
 	{
-
 
 		$request->validate([
 			'name' => 'required',
 			'address' => 'required',
 			'phone' => 'required',
 			'age' => 'required',
-			'image' => 'required|image'
+			'image' => 'required'
 		]);
 		$image = $request->file('image');
 		$new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -31,11 +30,16 @@ class ClientController extends Controller
 			'address' => $request->input('address'),
       'phone' => $request->input('phone'),
 			'age' => $request->input('age'),
+			/* 'image' => $request->$image */
 			'image' => $request->$new_name
 		]);
 		$client->save();
 		return response()->json('successfully added');
 	}
+  public function edit($id){
+    $client = Client::find($id);
+    return response()->json($client);
+  }
 	public function update(Request $request, $id)
 	{
 		$image_name = $request->hidden_image;
@@ -63,7 +67,7 @@ class ClientController extends Controller
 		$client->update($request->all());
     return response()->json('successfully updated');
 	}
-	public function destroy($id)
+	public function delete($id)
 	{
 		$client = Client::find($id);
 		$client->delete();

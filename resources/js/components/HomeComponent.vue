@@ -11,7 +11,6 @@
                 <th>Phone</th>
                 <th>Age</th>
                 <th>Image</th>
-                <!-- <th>Actions</th> -->
 
             </tr>
             </thead>
@@ -44,7 +43,7 @@
         },
         created() {
             this.axios
-                .get('http://localhost:8000/api/clients/')
+                .get('http://localhost:8000/api/clients')
                 .then(response => {
                     this.clients = response.data;
                 });
@@ -52,7 +51,7 @@
         methods: {
             deleteProduct(id) { 
                 this.axios
-                    .delete(`http://localhost:8000/api/clients/${id}`)
+                    .delete(`http://localhost:8000/api/client/delete/${id}`)
                     .then(response => {
                         let i = this.clients.map(data => data.id).indexOf(id);
                         this.clients.splice(i, 1)

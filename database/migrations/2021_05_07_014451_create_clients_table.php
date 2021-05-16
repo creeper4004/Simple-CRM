@@ -19,7 +19,7 @@ class CreateClientsTable extends Migration
       $table->string('address');
       $table->integer('phone')->default(0);
       $table->integer('age')->default(0);
-      $table->string('image');
+      $table->string('image')->nullable();
       $table->timestamps();
     });
   }

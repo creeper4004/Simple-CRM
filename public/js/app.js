@@ -1877,9 +1877,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1888,26 +1885,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onFileChange: function onFileChange() {
-      this.image = this.$refs.file.files[0];
+      this.client.image = this.$refs.file.files[0];
     },
     addClient: function addClient() {
       var _this = this;
 
-      var client = new FormData();
-      client.append('image', this.image);
+      /* let client = new FormData() */
 
-      _.each(this.client, function (value, key) {
-        client.append(key, value);
-      });
+      /* client.append('image', this.image) */
 
-      axios.post('/api/create', client, {
-        headers: {
-          'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
-        }
-      }).then(function (response) {
+      /* _.each(this.client, (value, key) => { */
+
+      /*     client.append(key,value) */
+
+      /* })  */
+      axios.post('http://localhost:8000/api/client/create', this.client).then(function (response) {
         return _this.$router.push({
           name: 'home'
-        });
+        })
+        /* console.log(response.data) */
+        ;
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
@@ -1967,7 +1964,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get('http://localhost:8000/api/client/${this.$route.params.id}').then(function (res) {
+    this.axios.get('http://localhost:8000/api/${this.$route.params.id}').then(function (res) {
       _this.client = res.data;
     });
   },
@@ -1975,7 +1972,7 @@ __webpack_require__.r(__webpack_exports__);
     updateClient: function updateClient() {
       var _this2 = this;
 
-      this.axios.patch('http://localhost:8000/api/clients/${this.$route.params.id}').then(function (res) {
+      this.axios.patch('http://localhost:8000/api/edit/${this.$route.params.id}').then(function (res) {
         _this2.$router.push({
           name: 'home'
         });
@@ -2033,7 +2030,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2043,7 +2039,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get('http://localhost:8000/api/clients/').then(function (response) {
+    this.axios.get('http://localhost:8000/api/clients').then(function (response) {
       _this.clients = response.data;
     });
   },
@@ -2051,7 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteProduct: function deleteProduct(id) {
       var _this2 = this;
 
-      this.axios["delete"]("http://localhost:8000/api/clients/".concat(id)).then(function (response) {
+      this.axios["delete"]("http://localhost:8000/api/client/delete/".concat(id)).then(function (response) {
         var i = _this2.clients.map(function (data) {
           return data.id;
         }).indexOf(id);
@@ -2104,7 +2100,6 @@ window.Vue.use((vue_axios__WEBPACK_IMPORTED_MODULE_0___default()), (axios__WEBPA
 
 
 (axios__WEBPACK_IMPORTED_MODULE_3___default().defaults.headers.common["X-Requested-With"]) = 'XMLHttpRequest';
-(axios__WEBPACK_IMPORTED_MODULE_3___default().defaults.baseURL) = 'http://localhost:8000';
 var routes = [{
   name: "home",
   path: "/",
@@ -23586,18 +23581,6 @@ var render = function() {
             }
           },
           [
-            _vm.errors
-              ? _c(
-                  "div",
-                  _vm._l(_vm.errors, function(error) {
-                    return _c("div", { staticClass: "alert alert-danger" }, [
-                      _vm._v(_vm._s(error))
-                    ])
-                  }),
-                  0
-                )
-              : _vm._e(),
-            _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Name")]),
               _vm._v(" "),
