@@ -3,7 +3,7 @@
    <h3 class="text-center">Create New Client</h3> 
      <div class="row mt-5">
       <div class="col-md-12">
-        <form @submit.prevent="addClient">
+        <form  method="POST" @submit.prevent="addClient">
           <div class="form-group">
             <label>Name</label>   
             <input type="text" class="form-control" v-model="client.name">
@@ -42,12 +42,13 @@ export default {
           this.client.image = this.$refs.file.files[0];
         },
         addClient(){
-            /* let client = new FormData() */
-            /* client.append('image', this.image) */
-            /* _.each(this.client, (value, key) => { */
-            /*     client.append(key,value) */
-            /* })  */
-            axios.post('http://localhost:8000/api/client/create', this.client)
+            let client = new FormData()
+            client.append('image', this.image)
+            _.each(this.client, (value, key) => {
+                client.append(key,value)
+            }) 
+            const data = new FormData();
+            axios.post('http://localhost:8000/api/client/create', data)
                  .then(response => (
                     this.$router.push({ name: 'home'})
                  ))

@@ -1899,12 +1899,16 @@ __webpack_require__.r(__webpack_exports__);
       /*     client.append(key,value) */
 
       /* })  */
-      axios.post('http://localhost:8000/api/client/create', this.client).then(function (response) {
+      var data = new FormData();
+      data.append('name', this.client.name);
+      data.append('address', this.client.address);
+      data.append('phone', this.client.phone);
+      data.append('age', this.client.age);
+      data.append('image', this.client.image);
+      axios.post('http://localhost:8000/api/client/create', data).then(function (response) {
         return _this.$router.push({
           name: 'home'
-        })
-        /* console.log(response.data) */
-        ;
+        });
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
