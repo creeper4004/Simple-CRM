@@ -17,16 +17,16 @@ class ClientController extends Controller
 	public function create(Request $request)
 	{
 		$image = $request->file('image');
-    $new_name = rand() . '.' . $image->getClientOriginalExtension();
-    $image->move(public_path('images'), $new_name);
+		    $new_name = rand() . '.' . $image->getClientOriginalExtension();
+		    $image->move(public_path('images'), $new_name);
 		$client = new Client([
 			'name' => $request->input('name'),
 			'address' => $request->input('address'),
       'phone' => $request->input('phone'),
 			'age' => $request->input('age'),
-			/* 'image' => $request->file('image') */
 			'image' => $request->$new_name
 		]);
+    $client->image = $new_name;
 		$client->save();
 		return response()->json($client);
 	}
@@ -40,6 +40,7 @@ class ClientController extends Controller
     $new_name = rand() . '.' . $image->getClientOriginalExtension();
     $image->move(public_path('images'), $new_name);
 		$client = Client::find($id);
+    $client->image = $new_name;
 		$client->update($request->all());
     return response()->json('successfully updated');
 	}

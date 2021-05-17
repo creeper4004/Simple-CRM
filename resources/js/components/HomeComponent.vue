@@ -21,8 +21,7 @@
                 <td>{{ client.address}}</td>
                 <td>{{ client.phone}}</td>
                 <td>{{ client.age}}</td>
-                <td>{{ client.image }}</td>
-                <img v-bind:src="'/public/images/' + client.image" /> 
+                <img v-bind:src="'images/' + client.image" class='avatar' alt='Avatar'/> 
                 <td>
                     <div class="btn-group" role="group">
                         <router-link :to="{name: 'edit', params: { id: client.id }}" class="btn btn-success">Edit</router-link>
