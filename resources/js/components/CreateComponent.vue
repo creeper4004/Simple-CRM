@@ -3,26 +3,26 @@
    <h3 class="text-center">Create New Client</h3> 
      <div class="row mt-5">
       <div class="col-md-12">
-        <form  method="POST" @submit.prevent="addClient">
+        <form  method="POST" @submit="addClient" enctype="multipart/form-data">
           <div class="form-group">
             <label>Name</label>   
-            <input type="text" class="form-control" v-model="client.name">
+            <input name="name" type="text" class="form-control" v-model="name">
           </div>
           <div class="form-group">
             <label>Address</label>   
-            <input type="text" class="form-control" v-model="client.address">
+            <input name="address" type="text" class="form-control" v-model="address">
           </div>
           <div class="form-group">
             <label>Phone</label>   
-            <input type="number" class="form-control" v-model="client.phone">
+            <input name="phone" type="number" class="form-control" v-model="phone">
           </div>
           <div class="form-group">
             <label>Age</label>   
-            <input type="number" class="form-control" v-model="client.age">
+            <input name="age" type="number" class="form-control" v-model="age">
           </div>
           <div class="form-group">
             <label>Image</label>   
-            <input ref="file" type="file" name="image" id="image" v-on:change="onFileChange">
+            <input name="image" type="file" class="form-control" v-on:change="onFileChange">
           </div>
           <button type="submit" class='btn btn-primary'>Create</button>
         </form>
@@ -34,21 +34,36 @@
 export default {
     data(){
         return{
-            client: {}
-        }
+            /* id: '', */
+            name: '',
+            address: '',
+            phone: '',
+            age: '',
+            image: ''
+        };
     },
     methods: {
-        onFileChange(){
-          this.client.image = this.$refs.file.files[0];
+        onFileChange(e){
+            console.log(e.target.files[0]);
+            this.image = e.target.files[0];
         },
-        addClient(){
-            let client = new FormData()
-            client.append('image', this.image)
-            _.each(this.client, (value, key) => {
-                client.append(key,value)
-            }) 
-            const data = new FormData();
-            axios.post('http://localhost:8000/api/client/create', data)
+        addClient(e){
+            e.preventDefault();
+            const config = {headers: { 'content-type': 'multipart/form-data' }}
+            let formData = new FormData();
+            /* formData.append('image', this.image); */
+            /* let client = new FormData() */
+            /* _.each(this.client, (value, key) => { */
+            /*     client.append(key,value) */
+            /* })  */
+            /* client.append('image', this.image); */
+            /* let formData = new FormData(); */
+            formData.append('name', this.name);
+            formData.append('address', this.address);
+            formData.append('phone', this.phone);
+            formData.append('age', this.age);
+            formData.append('image', this.image);
+            axios.post('http://localhost:8000/api/client/create', formData, config)
                  .then(response => (
                     this.$router.push({ name: 'home'})
                  ))

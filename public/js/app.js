@@ -1880,32 +1880,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      client: {}
+      /* id: '', */
+      name: '',
+      address: '',
+      phone: '',
+      age: '',
+      image: ''
     };
   },
   methods: {
-    onFileChange: function onFileChange() {
-      this.client.image = this.$refs.file.files[0];
+    onFileChange: function onFileChange(e) {
+      console.log(e.target.files[0]);
+      this.image = e.target.files[0];
     },
-    addClient: function addClient() {
+    addClient: function addClient(e) {
       var _this = this;
 
-      /* let client = new FormData() */
+      e.preventDefault();
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      /* formData.append('image', this.image); */
 
-      /* client.append('image', this.image) */
+      /* let client = new FormData() */
 
       /* _.each(this.client, (value, key) => { */
 
       /*     client.append(key,value) */
 
       /* })  */
-      var data = new FormData();
-      data.append('name', this.client.name);
-      data.append('address', this.client.address);
-      data.append('phone', this.client.phone);
-      data.append('age', this.client.age);
-      data.append('image', this.client.image);
-      axios.post('http://localhost:8000/api/client/create', data).then(function (response) {
+
+      /* client.append('image', this.image); */
+
+      /* let formData = new FormData(); */
+
+      formData.append('name', this.name);
+      formData.append('address', this.address);
+      formData.append('phone', this.phone);
+      formData.append('age', this.age);
+      formData.append('image', this.image);
+      axios.post('http://localhost:8000/api/client/create', formData, config).then(function (response) {
         return _this.$router.push({
           name: 'home'
         });
@@ -1962,7 +1979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      product: {}
+      client: {}
     };
   },
   created: function created() {
@@ -2072,52 +2089,50 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.es5.js");
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
-/* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_HomeComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/HomeComponent.vue */ "./resources/js/components/HomeComponent.vue");
-/* harmony import */ var _components_CreateComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/CreateComponent.vue */ "./resources/js/components/CreateComponent.vue");
-/* harmony import */ var _components_EditComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/EditComponent.vue */ "./resources/js/components/EditComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
+/* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_HomeComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/HomeComponent.vue */ "./resources/js/components/HomeComponent.vue");
+/* harmony import */ var _components_CreateComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/CreateComponent.vue */ "./resources/js/components/CreateComponent.vue");
+/* harmony import */ var _components_EditComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/EditComponent.vue */ "./resources/js/components/EditComponent.vue");
 // app.js
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
 
 
-
+ // import _ from 'lodash'
 
  // import App from "./App.vue";
 
+ // window.Vue.use(_);
 
-window.Vue.use((lodash__WEBPACK_IMPORTED_MODULE_2___default()));
-window.Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_5__.default);
+window.Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_4__.default);
 window.Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_1__.default);
-window.Vue.use((vue_axios__WEBPACK_IMPORTED_MODULE_0___default()), (axios__WEBPACK_IMPORTED_MODULE_3___default()));
+window.Vue.use((vue_axios__WEBPACK_IMPORTED_MODULE_0___default()), (axios__WEBPACK_IMPORTED_MODULE_2___default()));
 
 
 
-(axios__WEBPACK_IMPORTED_MODULE_3___default().defaults.headers.common["X-Requested-With"]) = 'XMLHttpRequest';
+(axios__WEBPACK_IMPORTED_MODULE_2___default().defaults.headers.common["X-Requested-With"]) = 'XMLHttpRequest';
 var routes = [{
   name: "home",
   path: "/",
-  component: _components_HomeComponent_vue__WEBPACK_IMPORTED_MODULE_6__.default
+  component: _components_HomeComponent_vue__WEBPACK_IMPORTED_MODULE_5__.default
 }, {
   name: "create",
   path: "/create",
-  component: _components_CreateComponent_vue__WEBPACK_IMPORTED_MODULE_7__.default
+  component: _components_CreateComponent_vue__WEBPACK_IMPORTED_MODULE_6__.default
 }, {
   name: "edit",
   path: "/edit/:id",
-  component: _components_EditComponent_vue__WEBPACK_IMPORTED_MODULE_8__.default
+  component: _components_EditComponent_vue__WEBPACK_IMPORTED_MODULE_7__.default
 }];
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__.default({
   mode: "history",
   routes: routes
 });
@@ -23577,12 +23592,8 @@ var render = function() {
         _c(
           "form",
           {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.addClient($event)
-              }
-            }
+            attrs: { method: "POST", enctype: "multipart/form-data" },
+            on: { submit: _vm.addClient }
           },
           [
             _c("div", { staticClass: "form-group" }, [
@@ -23593,19 +23604,19 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.client.name,
-                    expression: "client.name"
+                    value: _vm.name,
+                    expression: "name"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.client.name },
+                attrs: { name: "name", type: "text" },
+                domProps: { value: _vm.name },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.client, "name", $event.target.value)
+                    _vm.name = $event.target.value
                   }
                 }
               })
@@ -23619,19 +23630,19 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.client.address,
-                    expression: "client.address"
+                    value: _vm.address,
+                    expression: "address"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.client.address },
+                attrs: { name: "address", type: "text" },
+                domProps: { value: _vm.address },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.client, "address", $event.target.value)
+                    _vm.address = $event.target.value
                   }
                 }
               })
@@ -23645,19 +23656,19 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.client.phone,
-                    expression: "client.phone"
+                    value: _vm.phone,
+                    expression: "phone"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "number" },
-                domProps: { value: _vm.client.phone },
+                attrs: { name: "phone", type: "number" },
+                domProps: { value: _vm.phone },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.client, "phone", $event.target.value)
+                    _vm.phone = $event.target.value
                   }
                 }
               })
@@ -23671,19 +23682,19 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.client.age,
-                    expression: "client.age"
+                    value: _vm.age,
+                    expression: "age"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "number" },
-                domProps: { value: _vm.client.age },
+                attrs: { name: "age", type: "number" },
+                domProps: { value: _vm.age },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.client, "age", $event.target.value)
+                    _vm.age = $event.target.value
                   }
                 }
               })
@@ -23693,8 +23704,8 @@ var render = function() {
               _c("label", [_vm._v("Image")]),
               _vm._v(" "),
               _c("input", {
-                ref: "file",
-                attrs: { type: "file", name: "image", id: "image" },
+                staticClass: "form-control",
+                attrs: { name: "image", type: "file" },
                 on: { change: _vm.onFileChange }
               })
             ]),

@@ -12,19 +12,32 @@ class ClientController extends Controller
 	{
     $clients = Client::all()->toArray();
     return array_reverse($clients);
+
 	}
 	public function create(Request $request)
 	{
-
-		$request->validate([
-			'name' => 'required',
-			'address' => 'required',
-			'phone' => 'required',
-			'age' => 'required',
-			'image' => 'required'
-		]);
-		$image = $request->file('image');
-		$new_name = rand() . '.' . $image->getClientOriginalExtension();
+    /* dd($request->all()); */
+    $image = $request->file('image');
+    if ($image != ''){ 
+      $request->validate([
+        'name' => 'required',
+        'address' => 'required',
+        'phone' => 'required',
+        'age' => 'required',
+        'image' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048'
+      ]);
+      $new_name = rand() . '.' . $request->image->getClientOriginalExtension();
+      $request->file('image')->move(public_path('images'), $new_name);
+      /* $image = $request->file('image')->store('ClientsImages', 'public'); */
+    }
+    else{
+			$request->validate([
+				'name' => 'required',
+				'address' => 'required',
+				'phone' => 'required',
+				'age' => 'required',
+			]);
+    }
 		$client = new Client([
 			'name' => $request->input('name'),
 			'address' => $request->input('address'),
@@ -50,12 +63,12 @@ class ClientController extends Controller
 				'address' => 'required',
 				'phone' => 'required',
 				'age' => 'required',
-				'image' => 'required|image'
+        'image' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048'
 			]);
 			$image_name = rand() . '.' . $image->getClientOriginalExtension();
 			$image->move(public_path('images'), $image_name);
-		    } 
-		    else {
+    } 
+    else {
 			$request->validate([
 				'name' => 'required',
 				'address' => 'required',

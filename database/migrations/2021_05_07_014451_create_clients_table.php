@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
       $table->id();
       $table->string('name');
       $table->string('address');
-      $table->integer('phone')->default(0);
+      $table->longInt('phone')->default(0);
       $table->integer('age')->default(0);
       $table->string('image')->nullable();
       $table->timestamps();

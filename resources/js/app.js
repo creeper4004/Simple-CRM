@@ -5,12 +5,12 @@ window.Vue = require("vue").default;
 import VueRouter from "vue-router";
 import VueAxios from "vue-axios";
 import VueSweetalert2 from 'vue-sweetalert2';
-import _ from 'lodash'
+// import _ from 'lodash'
 import axios from "axios";
 // import App from "./App.vue";
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-window.Vue.use(_);
+// window.Vue.use(_);
 window.Vue.use(VueRouter);
 window.Vue.use(VueSweetalert2);
 window.Vue.use(VueAxios, axios);
