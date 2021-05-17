@@ -1890,7 +1890,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onFileChange: function onFileChange(e) {
-      console.log(e.target.files[0]);
       this.image = e.target.files[0];
     },
     addClient: function addClient(e) {
@@ -1903,20 +1902,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       var formData = new FormData();
-      /* formData.append('image', this.image); */
-
-      /* let client = new FormData() */
-
-      /* _.each(this.client, (value, key) => { */
-
-      /*     client.append(key,value) */
-
-      /* })  */
-
-      /* client.append('image', this.image); */
-
-      /* let formData = new FormData(); */
-
       formData.append('name', this.name);
       formData.append('address', this.address);
       formData.append('phone', this.phone);
@@ -1976,24 +1961,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      client: {}
+      client: []
+      /* id: '', */
+
+      /* name: '', */
+
+      /* address: '', */
+
+      /* phone: '', */
+
+      /* age: '', */
+
+      /* image: '' */
+
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
-    this.axios.get('http://localhost:8000/api/${this.$route.params.id}').then(function (res) {
+    this.axios.get("http://localhost:8000/api/client/edit/".concat(this.$route.params.id)).then(function (res) {
       _this.client = res.data;
     });
   },
   methods: {
-    updateClient: function updateClient() {
+    onFileChange: function onFileChange(e) {
+      this.client.image = e.target.files[0];
+    },
+    updateClient: function updateClient(e) {
       var _this2 = this;
 
-      this.axios.patch('http://localhost:8000/api/edit/${this.$route.params.id}').then(function (res) {
+      e.preventDefault();
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      formData.append('name', this.client.name);
+      formData.append('address', this.client.address);
+      formData.append('phone', this.client.phone);
+      formData.append('age', this.client.age);
+      formData.append('image', this.client.image);
+      axios.post("http://localhost:8000/api/client/update/".concat(this.$route.params.id), formData, config).then(function (res) {
         _this2.$router.push({
           name: 'home'
         });
@@ -2051,6 +2067,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2062,6 +2079,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.axios.get('http://localhost:8000/api/clients').then(function (response) {
       _this.clients = response.data;
+      console.log(_this.clients);
     });
   },
   methods: {
@@ -23752,12 +23770,8 @@ var render = function() {
         _c(
           "form",
           {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.updateClient($event)
-              }
-            }
+            attrs: { method: "POST", enctype: "multipart/form-data" },
+            on: { submit: _vm.updateClient }
           },
           [
             _c("div", { staticClass: "form-group" }, [
@@ -23773,7 +23787,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text" },
+                attrs: { name: "name", type: "text" },
                 domProps: { value: _vm.client.name },
                 on: {
                   input: function($event) {
@@ -23799,7 +23813,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text" },
+                attrs: { name: "address", type: "text" },
                 domProps: { value: _vm.client.address },
                 on: {
                   input: function($event) {
@@ -23825,7 +23839,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "number" },
+                attrs: { name: "phone", type: "number" },
                 domProps: { value: _vm.client.phone },
                 on: {
                   input: function($event) {
@@ -23851,7 +23865,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "number" },
+                attrs: { name: "age", type: "number" },
                 domProps: { value: _vm.client.age },
                 on: {
                   input: function($event) {
@@ -23864,10 +23878,20 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Image")]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { name: "image", type: "file" },
+                on: { change: _vm.onFileChange }
+              })
+            ]),
+            _vm._v(" "),
             _c(
               "button",
               { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("update")]
+              [_vm._v("Edit")]
             )
           ]
         )
@@ -23919,6 +23943,8 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(client.age))]),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(client.image))]),
+            _vm._v(" "),
+            _c("img", { attrs: { src: "/public/images/" + client.image } }),
             _vm._v(" "),
             _c("td", [
               _c(

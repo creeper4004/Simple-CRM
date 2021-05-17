@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,12 +15,6 @@ use App\Http\Controllers\Controller;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-/* Route::apiResources( */
-/* 	[ */
-/* 		'clients' => 'API/ClientController' */
-/* 	] */
-/* ); */
 Route::get('clients', [ClientController::class, 'index']);
 Route::group(['prefix' => 'client'], function(){ 
   Route::post('create', [ClientController::class, 'create']);
@@ -27,8 +22,4 @@ Route::group(['prefix' => 'client'], function(){
   Route::post('update/{id}', [ClientController::class, 'update']);
   Route::delete('delete/{id}', [ClientController::class, 'delete']);
 });
-
-/* Route::middleware('api')->group(function () { */
-/*   Route::resource('clients', ClientController::class); */
-/* }); */
 

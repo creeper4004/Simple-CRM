@@ -44,20 +44,12 @@ export default {
     },
     methods: {
         onFileChange(e){
-            console.log(e.target.files[0]);
             this.image = e.target.files[0];
         },
         addClient(e){
             e.preventDefault();
             const config = {headers: { 'content-type': 'multipart/form-data' }}
             let formData = new FormData();
-            /* formData.append('image', this.image); */
-            /* let client = new FormData() */
-            /* _.each(this.client, (value, key) => { */
-            /*     client.append(key,value) */
-            /* })  */
-            /* client.append('image', this.image); */
-            /* let formData = new FormData(); */
             formData.append('name', this.name);
             formData.append('address', this.address);
             formData.append('phone', this.phone);

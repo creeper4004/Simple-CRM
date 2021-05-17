@@ -21,7 +21,8 @@
                 <td>{{ client.address}}</td>
                 <td>{{ client.phone}}</td>
                 <td>{{ client.age}}</td>
-                <td>{{ client.image}}</td>
+                <td>{{ client.image }}</td>
+                <img v-bind:src="'/public/images/' + client.image" /> 
                 <td>
                     <div class="btn-group" role="group">
                         <router-link :to="{name: 'edit', params: { id: client.id }}" class="btn btn-success">Edit</router-link>
@@ -46,6 +47,7 @@
                 .get('http://localhost:8000/api/clients')
                 .then(response => {
                     this.clients = response.data;
+                    console.log(this.clients)
                 });
         },
         methods: {
