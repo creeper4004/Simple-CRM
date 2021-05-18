@@ -60,7 +60,19 @@ export default {
                     this.$router.push({ name: 'home'})
                  ))
                  .catch(err => console.log(err))
-                 .finally(() => this.loading = false)
+                 .finally(() => {
+                    this.loading = false;
+                 });
+            this.$swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Client created successfully',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            
+            console.log("client created");
+
         }
     }
 }

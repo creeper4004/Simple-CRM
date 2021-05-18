@@ -66,6 +66,14 @@ export default {
                  .then((res) =>{
                     this.$router.push({ name: 'home'});
             });
+            this.$swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Client updated successfully',
+                  showConfirmButton: false,
+                  timer: 2500
+            });
+
         }
     }
 }

@@ -57,6 +57,14 @@
                         let i = this.clients.map(data => data.id).indexOf(id);
                         this.clients.splice(i, 1)
                     });
+                this.$swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'Client deleted successfully',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+
             }
         }
     }
