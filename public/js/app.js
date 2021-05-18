@@ -1914,8 +1914,16 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
-        return _this.loading = false;
+        _this.loading = false;
       });
+      this.$swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Client created successfully',
+        showConfirmButton: false,
+        timer: 2500
+      });
+      console.log("client created");
     }
   }
 });
@@ -2014,6 +2022,13 @@ __webpack_require__.r(__webpack_exports__);
           name: 'home'
         });
       });
+      this.$swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Client updated successfully',
+        showConfirmButton: false,
+        timer: 2500
+      });
     }
   }
 });
@@ -2031,6 +2046,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -2091,6 +2107,13 @@ __webpack_require__.r(__webpack_exports__);
         }).indexOf(id);
 
         _this2.clients.splice(i, 1);
+      });
+      this.$swal.fire({
+        position: 'top-end',
+        icon: 'warning',
+        title: 'Client deleted successfully',
+        showConfirmButton: false,
+        timer: 2500
       });
     }
   }
@@ -23925,7 +23948,34 @@ var render = function() {
     _c("h2", { staticClass: "text-center" }, [_vm._v("Clients List")]),
     _vm._v(" "),
     _c("table", { staticClass: "table" }, [
-      _vm._m(0),
+      _c("thead", [
+        _c(
+          "tr",
+          [
+            _c("th", [_vm._v("ID")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Name")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Address")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Phone")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Age")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Image")]),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "btn-add btn btn-success btn-lg",
+                attrs: { to: "/create", align: "center" }
+              },
+              [_vm._v("Add")]
+            )
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c(
         "tbody",
@@ -23954,7 +24004,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "btn btn-success",
+                      staticClass: "btn btn-info",
                       attrs: { to: { name: "edit", params: { id: client.id } } }
                     },
                     [_vm._v("Edit")]
@@ -23983,28 +24033,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Address")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Phone")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Age")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Image")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

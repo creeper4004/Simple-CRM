@@ -11,6 +11,7 @@
                 <th>Phone</th>
                 <th>Age</th>
                 <th>Image</th>
+                <router-link to="/create" align="center" class="btn-add btn btn-success btn-lg">Add</router-link>
 
             </tr>
             </thead>
@@ -24,7 +25,7 @@
                 <img v-bind:src="'images/' + client.image" class='avatar' alt='Avatar'/> 
                 <td>
                     <div class="btn-group" role="group">
-                        <router-link :to="{name: 'edit', params: { id: client.id }}" class="btn btn-success">Edit</router-link>
+                        <router-link :to="{name: 'edit', params: { id: client.id }}" class="btn btn-info">Edit</router-link>
                         <button class="btn btn-danger" @click="deleteProduct(client.id)">Delete</button>
                     </div>
                 </td>
@@ -57,8 +58,7 @@
                         let i = this.clients.map(data => data.id).indexOf(id);
                         this.clients.splice(i, 1)
                     });
-                this.$swal.fire({
-                    position: 'top-end',
+                this.$swal.fire({ position: 'top-end',
                     icon: 'warning',
                     title: 'Client deleted successfully',
                     showConfirmButton: false,
