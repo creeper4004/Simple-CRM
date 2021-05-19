@@ -1923,7 +1923,6 @@ __webpack_require__.r(__webpack_exports__);
         showConfirmButton: false,
         timer: 2500
       });
-      console.log("client created");
     }
   }
 });

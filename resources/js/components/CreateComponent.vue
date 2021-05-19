@@ -71,7 +71,6 @@ export default {
                 timer: 2500
             });
             
-            console.log("client created");
 
         }
     }

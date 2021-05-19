@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
-use App\Http\Resources\ClientCollection;
 
 class ClientController extends Controller
 {
@@ -17,8 +16,7 @@ class ClientController extends Controller
 	public function create(Request $request)
 	{
 		$image = $request->file('image');
-    $new_name = rand() . '.' . $image->getClientOriginalExtension();
-    $image->move(public_path('images'), $new_name);
+    $new_name = $this->createImageName($image);
 		$client = new Client([
 			'name' => $request->input('name'),
 			'address' => $request->input('address'),
@@ -28,7 +26,7 @@ class ClientController extends Controller
 		]);
     $client->image = $new_name;
 		$client->save();
-		return response()->json($client);
+		return response()->json("successfully added");
 	}
   public function edit($id){
     $client = Client::find($id);
@@ -37,11 +35,12 @@ class ClientController extends Controller
 	public function update(Request $request, $id)
 	{
 		$image = $request->file('image');
-    $new_name = rand() . '.' . $image->getClientOriginalExtension();
-    $image->move(public_path('images'), $new_name);
+    $new_name = $this->createImageName($image);
 		$client = Client::find($id);
-    $client->image = $new_name;
+    /* $client-> */
 		$client->update($request->all());
+    $client->image = $new_name;
+    $client->save();
     return response()->json('successfully updated');
 	}
 	public function delete($id)
@@ -50,4 +49,9 @@ class ClientController extends Controller
 		$client->delete();
     return response()->json('successfully deleted');
 	}
+  private function createImageName($image){
+    $new_name = rand() . '.' . $image->getClientOriginalExtension();
+    $image->move(public_path('images'), $new_name);
+    return $new_name;
+  }
 }
